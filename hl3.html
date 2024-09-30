@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="h3css.css">
+  <title>Login Page</title>
+</head>
+
+<body>
+  <!--ring div starts here-->
+  <div class="ring">
+    <i style="--clr:#e391d3;"></i>
+    <i style="--clr:#ce71f2;"></i>
+    <i style="--clr:#6ca2f3;"></i>
+    <div class="login">
+      <h2>Login</h2>
+      <div class="inputBx">
+        <input type="text" id="username" placeholder="Username">
+      </div>
+      <div class="inputBx">
+        <input type="password" id="password" placeholder="Password">
+      </div>
+      <div class="inputBx">
+        <input type="submit" id="loginButton" value="Sign in">
+      </div>
+      <div class="links">
+        <a href="#" id="forgetPassword">Forget Password</a>
+        <a href="#" id="signup">Signup</a>
+      </div>
+    </div>
+  </div>
+  <!--ring div ends here-->
+
+  <script>
+    // Function for sign-in button
+    document.getElementById('loginButton').addEventListener('click', function () {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      if (username === '' || password === '') {
+        alert('Please fill in both fields');
+      } else {
+        // Simulating login success and redirecting
+        alert('Login successful!');
+        window.location.href = 'roadmap.html'; // Replace with your dashboard or desired redirect URL
+      }
+    });
+
+    // Function for forget password link
+    document.getElementById('forgetPassword').addEventListener('click', function () {
+      alert('Redirecting to forgot password page...');
+      // You can redirect to an actual forgot password page like this:
+      // window.location.href = 'forgot-password.html';
+    });
+
+    // Function for signup link
+    document.getElementById('signup').addEventListener('click', function () {
+      alert('Redirecting to signup page...');
+      window.location.href = 'signup.html'; // Replace with the actual signup page URL
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pregnancy Calendar with FullCalendar</title>
+
+    <!-- FullCalendar CSS -->
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css' rel='stylesheet' />
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-image: url("basic\ bg.png"); 
+            color: rgb(79, 122, 196);
+        }
+        h1 {
+            text-align: center;
+            color: #4254c8;
+            font-size: 4em;
+            margin-bottom: 40px;
+        }
+        #calendar {
+            max-width: 1120px;
+            margin: auto;
+        }
+        .mood-selection, .appointment-input {
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+        .emoji-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .emoji-container span {
+            cursor: pointer;
+            font-size: 4em;
+            margin: 1px;
+            transition: transform 0.2s;
+        }
+        .emoji-container span:hover {
+            transform: scale(1.3);
+        }
+        #appointment-text {
+            width: 50%;
+            padding: 10px;
+            font-size: 1.2em;
+        }
+        #save-btn {
+            background: #597fba;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        #save-btn:hover {
+            background: #147979;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Pregnancy Calendar</h1>
+
+    <!-- Calendar container -->
+    <div id='calendar'></div>
+
+    <!-- Mood and appointment input form -->
+    <div class="mood-selection" style="display: none;" id="moodForm">
+        <h3>Select Mood for <span id="selected-date"></span></h3>
+        <div class="emoji-container">
+            <span onclick="setMood('😊')">😊</span>
+            <span onclick="setMood('😢')">😢</span>
+            <span onclick="setMood('😕')">😕</span>
+            <span onclick="setMood('😴')">😴</span>
+            <span onclick="setMood('😍')">😍</span>
+        </div>
+        <input type="hidden" id="selected-mood" />
+        <div class="appointment-input">
+            <textarea id="appointment-text" rows="3" placeholder="Enter your appointment here..."></textarea>
+        </div>
+        <button id="save-btn" onclick="saveEvent()">Save</button>
+    </div>
+
+    <!-- FullCalendar Script -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+
+    <script>
+        let calendar; 
+        let selectedDate; 
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let calendarEl = document.getElementById('calendar');
+            
+            calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                selectable: true,
+                dateClick: function (info) {
+                    selectedDate = info.dateStr;
+                    document.getElementById('selected-date').textContent = selectedDate;
+                    document.getElementById('moodForm').style.display = 'block';
+                },
+                events: [] 
+            });
+
+            calendar.render();
+        });
+
+        function setMood(mood) {
+            document.getElementById('selected-mood').value = mood;
+            alert(`Mood set: ${mood}`);
+        }
+
+        function saveEvent() {
+            const mood = document.getElementById('selected-mood').value;
+            const appointment = document.getElementById('appointment-text').value;
+
+            if (!mood && !appointment) {
+                alert('Please set a mood or an appointment.');
+                return;
+            }
+
+            const eventTitle = `Mood: ${mood ? mood : 'N/A'}, Appointment: ${appointment ? appointment : 'None'}`;
+
+            calendar.addEvent({
+                title: eventTitle,
+                start: selectedDate,
+                allDay: true
+            });
+
+            const eventData = {
+                mood: mood || 'N/A',
+                appointment: appointment || 'None',
+                date: selectedDate
+            };
+
+            const savedEvents = JSON.parse(localStorage.getItem('events')) || [];
+            savedEvents.push(eventData);
+            localStorage.setItem('events', JSON.stringify(savedEvents));
+
+            document.getElementById('selected-mood').value = '';
+            document.getElementById('appointment-text').value = '';
+            document.getElementById('moodForm').style.display = 'none';
+
+            alert('Event saved!');
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Dashboard - Baby on the Way!</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500&family=Dancing+Script:wght@500&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-image: url("familybg2.png");
+            color: #333;
+            padding: 20px;
+        }
+
+        h1,
+        h2 {
+            font-family: 'Dancing Script', cursive;
+            color: #13492c;
+        }
+
+        h1 {
+            font-size: 3em;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #47c65a58;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .dashboard-btn {
+            background-color: #2ea84058;
+            color: white;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dashboard-btn:hover {
+            background-color: #d13c63;
+            transform: translateY(-5px);
+        }
+
+        .dashboard-btn i {
+            margin-right: 10px;
+            font-size: 1.5em;
+        }
+
+        .section {
+            margin: 50px 0;
+        }
+
+        .cta {
+            background-color: #f7e6e8;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta p {
+            font-size: 1.3em;
+            color: #555;
+        }
+
+        .cta a {
+            text-decoration: none;
+        }
+
+        .cta button {
+            background-color: #d94f70;
+            color: #fff;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta button:hover {
+            background-color: #c33a5d;
+        }
+
+        .icon-calendar,
+        .icon-details {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            border-radius: 50%;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon-calendar i,
+        .icon-details i {
+            color: #e04a71;
+            font-size: 1.5em;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            .dashboard-btn {
+                width: 100%;
+                font-size: 1.2em;
+            }
+
+            .button-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Welcome to the Family Dashboard!</h1>
+
+    <div class="container">
+        <div class="section">
+            <h2>What would you like to check today?</h2>
+            <div class="button-container">
+                <!-- Patient Details Button -->
+                <button class="dashboard-btn" onclick="window.location.href='readonly.html'">
+                    <div class="icon-details">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    View Patient Details
+                </button>
+
+                <!-- Calendar Button -->
+                <button class="dashboard-btn" onclick="window.location.href='view_calendar.html'">
+                    <div class="icon-calendar">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    View Calendar
+                </button>
+            </div>
+        </div>
+
+</body>
+
+</html>

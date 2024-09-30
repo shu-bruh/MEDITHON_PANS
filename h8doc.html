@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr</title>
+    <style>
+        body {
+            font-family: cursive, lucida;
+            margin: 0;
+            padding: 0;
+            background-color: #b9dded;
+            background: url("docbg\ \(2\).png");
+        }
+
+        header {
+            background-color: #b170e0;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: rgb(64, 64, 176);
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        section {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #804545;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        .btn {
+            background-color: #008cba;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #005f7a;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #008cba;
+            color: white;
+        }
+
+        .details-btn {
+            background-color: #005f7a;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .details-btn:hover {
+            background-color: #003e4e;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Dr.Sonakshi</h1>
+        <p>Lilavati Hospital</p>
+    </header>
+
+    <section id="about" class="container">
+        <h2> Dr. Sonankshi</h2>
+        <p>Dr. Sonakshi is a highly experienced family physician with over 15 years of practice. He is committed to
+            providing personalized care to each of his patients and ensuring their well-being through comprehensive
+            health services.</p>
+    </section>
+
+    <section id="services" class="container">
+        <h2>Services and Experties</h2>
+        <ul>
+            <li>Obstetrician</li>
+            <li>Pediatric Care</li>
+            <li>Vaccinations</li>
+        </ul>
+        <button class="details-btn"
+            onclick="alert('More details about services offered by Dr. John Doe')">Details</button>
+    </section>
+
+    <section id="patients" class="container">
+        <h2>Patient List</h2>
+        <table>
+            <tr>
+                <th>Patient Name</th>
+                <th>Age</th>
+                <th>Appointment Date</th>
+                <th>Medical Record Link</th>
+                <th>Details</th>
+            </tr>
+            <tr>
+                <td>Rani Talpade</td>
+                <td>25</td>
+                <td>2024-09-25</td>
+                <td><a href="medical-records/rani.pdf" target="_blank">View Record</a></td>
+                <td><button class="details-btn" onclick="alert('Showing details for Rani Talpade')">Details</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Aishwarya Roshan</td>
+                <td>32</td>
+                <td>2024-09-26</td>
+                <td><a href="medical-records/aishwarya.pdf" target="_blank">View Record</a></td>
+                <td><button class="details-btn" onclick="alert('Showing details for Aishwarya Roshan')">Details</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Kiara Ambani</td>
+                <td>28</td>
+                <td>2024-09-27</td>
+                <td><a href="medical-records/kiara.pdf" target="_blank">View Record</a></td>
+                <td><button class="details-btn" onclick="alert('Showing details for Kiara Ambani')">Details</button>
+                </td>
+            </tr>
+        </table>
+    </section>
+
+
+    <footer>
+        <p>&copy; 2024 Dr. Sonakshi. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>

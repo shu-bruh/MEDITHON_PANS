@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Pregnancy Calendar with FullCalendar</title>
+
+    <!-- FullCalendar CSS -->
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css' rel='stylesheet' />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-image: url("familybg2.png");
+            color: rgb(54, 139, 88);
+        }
+        h1 {
+            text-align: center;
+            color: rgb(54, 139, 88);
+            font-size: 4em;
+            margin-bottom: 40px;
+        }
+        #calendar {
+            max-width: 1120px;
+            margin: auto;
+        }
+        table {
+            width: 90%;
+            margin: 40px auto;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            font-size: 1.2em;
+            text-align: center;
+        }
+        table th, table td {
+            padding: 20px 30px;
+            border-bottom: 1px solid #ddd;
+        }
+        table th {
+            background-color: rgba(20, 73, 41, 0.668);
+            color: white;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        table td {
+            font-size: 1.2em;
+            color: #333;
+        }
+        table tr:hover {
+            background-color: #f2f2f2;
+        }
+        canvas {
+            margin: 40px auto;
+            display: block;
+            max-width: 90%;
+        }
+        #reset-btn {
+            display: block;
+            margin: 40px auto;
+            padding: 15px 30px;
+            background-color: rgba(20, 73, 41, 0.668);
+            color: white;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #reset-btn:hover {
+            background-color: rgba(20, 73, 41, 0.668);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Pregnancy Calendar Overview</h1>
+
+    <!-- Calendar container -->
+    <div id='calendar'></div>
+
+    <!-- Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Mood</th>
+                <th>Appointment</th>
+            </tr>
+        </thead>
+        <tbody id="eventTableBody">
+            <!-- Data will be inserted dynamically -->
+        </tbody>
+    </table>
+
+    <!-- Mood Frequency Chart -->
+    <canvas id="moodChart" height="100"></canvas>
+
+    <!-- Reset Button -->
+    <button id="reset-btn" onclick="resetCalendar()">Reset Calendar</button>
+
+    <!-- FullCalendar and Chart.js Scripts -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        let calendar;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let calendarEl = document.getElementById('calendar');
+            
+            calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: loadEvents() 
+            });
+
+            calendar.render();
+            renderMoodChart();
+            renderEventTable();
+        });
+
+        function loadEvents() {
+            const savedEvents = JSON.parse(localStorage.getItem('events')) || [];
+            return savedEvents.map(event => ({
+                title: `Mood: ${event.mood}, Appointment: ${event.appointment}`,
+                start: event.date,
+                allDay: true
+            }));
+        }
+
+        function renderMoodChart() {
+            const savedEvents = JSON.parse(localStorage.getItem('events')) || [];
+            const moodCount = { '😊': 0, '😢': 0, '😕': 0, '😴': 0, '😍': 0, 'N/A': 0 };
+
+            savedEvents.forEach(event => {
+                if (moodCount[event.mood] !== undefined) {
+                    moodCount[event.mood]++;
+                }
+            });
+
+            const ctx = document.getElementById('moodChart').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['😊', '😢', '😕', '😴', '😍', 'N/A'],
+                    datasets: [{
+                        label: 'Mood Frequency',
+                        data: [moodCount['😊'], moodCount['😢'], moodCount['😕'], moodCount['😴'], moodCount['😍'], moodCount['N/A']],
+                        backgroundColor: ['#ff77a9', '#4254c8', '#ff77a9', '#4254c8', '#ff77a9', '#4254c8'],
+                        borderColor: '#ffffff',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#4254c8', // Axis label color
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#ff77a9', // Axis label color
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#4254c8', // Legend label color
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderEventTable() {
+            const savedEvents = JSON.parse(localStorage.getItem('events')) || [];
+            const tableBody = document.getElementById('eventTableBody');
+
+            savedEvents.forEach(event => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${event.date}</td>
+                    <td>${event.mood}</td>
+                    <td>${event.appointment}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function resetCalendar() {
+            if (confirm('Are you sure you want to reset the calendar and remove all events?')) {
+                localStorage.removeItem('events');
+                location.reload(); // Reload the page to clear the calendar and table
+            }
+        }
+    </script>
+
+</body>
+</html>

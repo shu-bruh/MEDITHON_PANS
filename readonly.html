@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read-Only Patient Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("familybg2.png");
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #31ac5c62;
+            padding: 20px;
+            border-radius: 50px;
+            box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: black;
+            border-radius: 50px;
+            border-color: black;
+
+        }
+        .details {
+            margin-bottom: 20px;
+        }
+        .details label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Patient Details</h1>
+        <div class="details">
+            <label>Name: </label><span id="name"></span>
+        </div>
+        <div class="details">
+            <label>Age: </label><span id="age"></span>
+        </div>
+        <div class="details">
+            <label>Email: </label><span id="email"></span>
+        </div>
+        <div class="details">
+            <label>Hospital: </label><span id="hospital"></span>
+        </div>
+    </div>
+
+    <script>
+        // Get saved data from localStorage
+        const patientData = JSON.parse(localStorage.getItem('patientData'));
+
+        if (patientData) {
+            document.getElementById('name').textContent = patientData.name;
+            document.getElementById('age').textContent = patientData.age;
+            document.getElementById('email').textContent = patientData.email;
+            document.getElementById('hospital').textContent = patientData.hospital;
+        } else {
+            document.body.innerHTML = '<h2>No patient data available. Please go to the editable page first.</h2>';
+        
+        }
+        function reset()
+         {
+            if (confirm('Are you sure you want to reset the calendar and remove all events?')) {
+                localStorage.removeItem('PatientData');
+                location.reload();}}
+    </script>
+</body>
+</html>

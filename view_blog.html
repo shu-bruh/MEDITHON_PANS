@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Blog Posts</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500&family=Dancing+Script:wght@500&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #fce4ec;
+            background-image: url(midhome.png);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        header {
+            width: 100%;
+            background-color: #ffcbdb;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 20px auto;
+        }
+
+        .blog-posts {
+            margin-top: 20px;
+        }
+
+        .blog-post {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-post h3 {
+            margin-top: 0;
+            color: #a13172;
+        }
+
+        .blog-post p {
+            font-size: 1.1em;
+            line-height: 1.6em;
+        }
+
+        .blog-post .author {
+            font-style: italic;
+            color: #777;
+            margin-top: 10px;
+        }
+
+        .blog-post .date {
+            font-size: 0.9em;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            width: 100%;
+            background-color: #ffcbdb;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9em;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Midwife's Blog</h1>
+        <p>Read the latest posts from midwives</p>
+    </header>
+
+    <div class="container">
+        <div class="blog-posts" id="blogPosts">
+            <h2>Latest Blog Posts</h2>
+            <!-- Blog posts will appear here -->
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Midwife's Blog - Empowering mothers through knowledge</p>
+    </footer>
+
+    <script>
+        // Retrieve blog posts from localStorage
+        const blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+
+        // Select the blog posts container
+        const blogPostsContainer = document.getElementById('blogPosts');
+
+        if (blogPosts.length === 0) {
+            blogPostsContainer.innerHTML = '<p>No blog posts available. Write one <a href="submit_blog.html">here</a>.</p>';
+        } else {
+            // Loop through blog posts and display them
+            blogPosts.forEach(post => {
+                const blogPost = document.createElement('div');
+                blogPost.classList.add('blog-post');
+
+                blogPost.innerHTML = `
+                    <h3>${post.title}</h3>
+                    <p>${post.content}</p>
+                    <div class="author">Written by: ${post.author}</div>
+                    <div class="date">Published on: ${post.date}</div>
+                `;
+
+                blogPostsContainer.appendChild(blogPost);
+            });
+        }
+    </script>
+
+</body>
+
+</html>
